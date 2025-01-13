@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container{
+            padding: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h3>Start typing name in the input field</h3>
+        <p id="para">Suggestions: <span id="suggestion"></span></p>
+        
+        First name: <input type="text" name="Suggestions" id="Suggestions" onkeyup="searchSuggestion(this.value)">
+    </div>
+
+    <script>
+        function searchSuggestion(value){
+            if(value.length==0){
+                document.getElementById('suggestion').innerHTML="";
+            }
+            else{
+                const xhttp=new XMLHttpRequest();
+                xhttp.onload=function(){
+                    const response=JSON.parse(xhttp.responseText);
+                    document.getElementById("suggestion").innerHTML=response;
+                }
+                xhttp.open('GET',`/get_suggestion?query=${value}`,true);
+                xhttp.send();
+            }
+        }
+    </script>
+</body>
+
+</html>
