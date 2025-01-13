@@ -17,7 +17,6 @@ def searchSuggestion(request):
 
 def getSuggestion(request):
     q=request.GET.get('query','').lower()
-    print(q)
     for name in names:
         if name.lower().startswith(q):
             hint=name
